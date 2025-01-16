@@ -92,3 +92,9 @@ Models were assessed using the following metrics:
 ## Results
 - **Best Model**: XGBoost, with the highest accuracy and ROC AUC score.
 - **Key Insight**: Handling class imbalance and selecting optimal features were critical for achieving high performance.
+
+### Web App Interface:
+![Web App Screenshot](https://github.com/DILIPdk1101/-Predicting-Loan-Default-ML/blob/ea4cb35fc84db0a1291515d931497fd163db642b/Output.png)
+*Figure: Results visualized in the Streamlit Web App*
+
+
