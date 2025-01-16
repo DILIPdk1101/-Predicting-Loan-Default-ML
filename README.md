@@ -1,62 +1,94 @@
-## -Predicting-Loan-Default-ML
+# Predicting Loan Defaults Using Machine Learning
 
- 
-## Abstract:
+## Overview
+This project focuses on predicting loan defaults using various machine learning and deep learning models. The goal is to assist financial institutions in mitigating risks by accurately identifying potential loan defaulters. The project addresses challenges such as class imbalance, feature selection, and outlier detection while exploring advanced predictive techniques.
 
-This project undertakes the task of predicting loan defaults by employing various machine learning models applied to data sourced from a peer-to-peer lending platform. The models utilized include Linear Regression, Ridge Regression, Lasso Regression, Random Forest, and Neural Network. The dataset encompasses a diverse set of borrower attributes, such as loan amount, interest rate, employment duration, homeownership status, annual income, and credit history. The primary objective is to analyze how these variables correlate with the loan status and identify the 10 most correlated and the 10 least correlated features. Through comprehensive analysis and model evaluation, the project aims to determine the most effective model for predicting loan defaults. The selected model will undergo thorough evaluation and comparison with other models to assess its efficacy in risk assessment and decision-making within the lending platform.
+---
 
-## Task 1(Evaluating Models for Loan Default Prediction):
+## Project Objectives
+- **Enhance Prediction Accuracy**: Use advanced models to improve loan default predictions.
+- **Handle Class Imbalance**: Apply resampling techniques to ensure model fairness.
+- **Feature Optimization**: Identify the most influential features for predictive modeling.
+- **Compare Models**: Evaluate the performance of multiple machine learning and deep learning models.
 
-This task focuses on the evaluation of multiple models to determine the most effective approach for predicting loan defaults. The process begins with the creation of a new variable, denoted as "y," derived from the training dataset. This variable serves as an indicator, assigning a value of 1 to defaulted loans and 0 to non-defaulted ones. Furthermore, the exploration of various transformations, such as converting categorical data into continuous variables, is conducted to enhance the predictive accuracy of the models.
+---
 
-## 1.1	Linear Regression Model:
+## Dataset
+- **Source**: Kaggle Loan Default Dataset.
+- **Size**: 87,501 records with 30 features.
+- **Features**:
+  - **Numerical**: Borrower's income, loan amount, debt-to-income ratio, etc.
+  - **Categorical**: Homeownership status, loan reason, and more.
 
-A linear regression model was applied to the train data, with the target variable "y" and all predictors. The model was trained and used to predict the target variable for both training and testing datasets. The Mean Squared Error (MSE) for the training data was found to be 0.0685, and for the testing data, it was also 0.0685. This indicates a consistent performance of the model on both training and testing datasets.
+---
 
-## 1.2	Ridge Regression Model
+## Challenges and Solutions
 
-The Ridge Regression model showed decent performance in predicting loan defaults using our dataset. We found that setting the regularization parameter (alpha) to 0.08 gave us the best results. However, even with this adjustment, our model's prediction errors, as measured by Mean Squared Error (MSE), were still quite high around 3.92 for the training data and 3.83 for the testing data.
+### 1. Outliers
+- **Problem**: Extreme values in features (e.g., income, loan amount) could skew model performance.
+- **Solution**:
+  - Applied the **Isolation Forest Algorithm** to identify anomalies.
+  - Retained outliers to improve robustness, as they often indicate significant events (e.g., fraud, financial distress).
 
-## 1.3	Lasso Regresion Model:
+### 2. Class Imbalance
+- **Problem**: The dataset was heavily imbalanced, with significantly more non-default cases than default cases.
+- **Solution**:
+  - Used **SMOTE-Tomek resampling** to balance the dataset by oversampling the minority class and removing overlapping samples.
 
-This task was to use a Lasso regression model to forecast loan defaults. We systematically examined how various λ values affected the model's performance, mirroring the range used in ridge regression. After analyzing the results, we found that the optimal Lasso model, characterized by a λ value of 0.01, yielded a Mean Squared Error (MSE) of train dataset is 0.068598 and test dataset is 0.069170.
- 
-## 1.4	Random Forest:
+### 3. Feature Selection
+- **Problem**: Redundant and irrelevant features caused potential multicollinearity and overfitting.
+- **Solution**:
+  - Used **XGBoost's feature importance scores** to identify the most relevant features.
+  - Removed irrelevant features (e.g., `ID`, `Sub_GGGrade`).
 
-In this task, we utilized a Random Forest model to forecast loan defaults. The model was trained on the train data, where the target variable (y) indicated loan defaults, and the predictors included borrower attributes.. Upon evaluation, the Mean Squared Error (MSE) for the best model on the training data was 0.00348, while on the test data, it is 0.0261.
+### 4. Data Preprocessing
+- **Problem**: Missing values and high cardinality in categorical variables posed challenges during model training.
+- **Solution**:
+  - Imputed missing **numerical data** using median imputation and **categorical data** using mode imputation.
+  - Applied **label encoding** to transform categorical features into numerical format.
 
+---
 
-## Variable Importance Analysis:
+## Models Implemented
 
-Analyzing variable importance in making well-informed decisions concerning risk assessment and loan approval. The Random Forest model's ability to achieve low Mean Squared Error (MSE) values for both training and testing data underscores its robust predictive capabilities. Analyzing variable importance provides valuable insights into the key factors influencing the prediction of loan defaults.
+### 1. Logistic Regression
+- **Description**: A simple and interpretable baseline model for binary classification.
+- **Performance**: Moderate accuracy; struggled with nonlinear relationships.
 
-## 1.5	Neural Network:
-For this task, we utilized a Multi-layer Perceptron (MLP) Neural Network model. This model was configured with a single hidden layer containing 50 neurons and utilized the Rectified Linear Unit activation function. Additionally, we set the random state to 42 for consistency in the results. Upon evaluation, the Mean Squared Error (MSE) for the training data was measured at 616021.57835395, while for the testing data, it was 41099.05548659612.
+### 2. Decision Trees
+- **Description**: A tree-based model that recursively partitions the data.
+- **Challenges**: Prone to overfitting, especially with noisy data.
+- **Solution**: Applied pruning and cross-validation to improve generalizability.
 
-## 1.6	Evaluation:
+### 3. Random Forest
+- **Description**: An ensemble method combining multiple decision trees.
+- **Performance**: Robust results due to reduced overfitting.
+- **Best Use Case**: Effective for capturing interactions between features.
 
-## Comparison of Approaches:
+### 4. XGBoost
+- **Description**: A powerful gradient-boosting algorithm.
+- **Strengths**:
+  - Excellent performance on large, high-dimensional data.
+  - Identified key features contributing to loan defaults.
+- **Challenges**: Sensitive to hyperparameters; required extensive tuning.
 
-We used five different methods to evaluate the predictive capability in forecasting loan defaults from the provided dataset: Linear Regression, Ridge Regression, Lasso Regression, Random Forest, and a Multi-layer Perceptron (MLP) Neural Network. Each of these models underwent training and assessment using the train Data, where y served as the target variable alongside a collection of predictors.
+### 5. Artificial Neural Networks (ANNs)
+- **Description**: Explored complex patterns using a multilayer neural network.
+- **Performance**: High accuracy; required significant computational resources.
+- **Best Use Case**: Capturing nonlinear relationships in the data.
 
-## Linear Regression Model:
+---
 
-Starting with Linear Regression model, produced a mean squared error (MSE) of 0.0685 for the training and testing sets of data. This shows that the model performed consistently on both sets of data.
+## Model Evaluation
+Models were assessed using the following metrics:
+- **Accuracy**: Overall correctness of predictions.
+- **Precision**: Accuracy of positive predictions.
+- **Recall**: Ability to identify all defaulters.
+- **F1 Score**: Balance between precision and recall.
+- **ROC AUC**: Ability to distinguish between classes.
 
-## Ridge Regression Model:
+---
 
-In the Ridge Regression model, we investigated various hyperparameters (λ) and determined the optimal alpha value to be 0.08. Nonetheless, even after fine-tuning, the model exhibited relatively elevated mean squared errors (MSEs), registering at 3.92 for the training dataset and 3.83 for the testing dataset.
-Lasso Regression Model:
-we employed Lasso Regression, examining different alpha values and determining the ideal alpha to be 0.001. Although the MSE values were marginally lower than those obtained with Ridge Regression, the errors remained very high, with training data MSEs of 0.0686 and testing data MSEs of 0.0692.
- 
-## Random Forest Model:
-
-Moving to Random Forest, this group learning technique exhibited encouraging results, showcasing remarkably low MSE values of 0.00348 for training data and 0.02609 for testing data.
-
-## Neural Network Model:
-
-Finally, we utilized an MLP Neural Network, setting it up with a single hidden layer consisting of 50 neurons and ReLU activation. Despite its intricacy, the Neural Network model displayed elevated MSE values of 616021.58 for training data and 41099.06 for testing data, suggesting considerable prediction inaccuracies.
-
-## Conclusion:
-
-To summarize, the Random Forest model proved to be the most proficient method for forecasting loan defaults based on the provided dataset, exhibiting the lowest MSE values across both training and testing datasets. Its ensemble learning characteristic likely bolstered its robust predictive capability, surpassing the accuracy and generalization of other regression and neural network models. Therefore, we identify the Random Forest model as the best model for this prediction task.
+## Results
+- **Best Model**: XGBoost, with the highest accuracy and ROC AUC score.
+- **Key Insight**: Handling class imbalance and selecting optimal features were critical for achieving high performance.
